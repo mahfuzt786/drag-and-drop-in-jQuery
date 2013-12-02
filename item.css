@@ -1,0 +1,169 @@
+body{
+    font-family: arial, tahoma, helvetica, verdana;
+    color: #000000;
+    margin: 0;
+    padding: 0;
+    }
+.wrapper{
+    position: relative;
+    width: 100%;
+    height: 625px;
+    margin-left: auto;
+    margin-right: auto;
+    background: url("back.png");
+    background-repeat: repeat-x repeat-y;
+}
+.inner{
+    position: absolute;
+    width: 95%;
+    height: 620px;
+    margin: 1px;
+}
+#items {
+    padding-left: 200px;
+    padding-top: 100px;
+}
+#items a{
+    text-decoration: none;
+}
+label {
+    background: #ffffff;
+    font-weight: bolder;
+    color: #000000;
+    text-shadow: 2px 3px 5px #ff0000;
+    border: solid 3px;
+    border-bottom-left-radius: 30px;
+    border-color: #ffff00;
+    padding: 10px;
+}
+.list{
+    width: 450px;
+    margin-left: 50px;
+    margin-top: 50px;
+    /*border: 5px ridge;*/
+    border-color: #ffffff;
+    font-size: large;
+    color: #00ff00;
+    text-shadow: 2px 3px 5px #ffffff;
+    border-bottom-right-radius: 40px;
+/*    padding: 50px;*/
+    line-height: 40px;
+}
+.list li{
+    width: 250px;
+    float: left;
+}
+#btnAdd{
+    color: #ffffff;
+    font-size: large;
+    font-weight: bolder;
+    border: 2px solid;
+    padding: 15px 0px;    
+}
+#btnAdd:hover {
+    color: #ffff00;    
+}
+#btnAdd:hover #add{    
+    background: url("images/icons.png") 0px -37px;
+}
+#add {
+    height: 32px;
+    width: 32px;
+    background: url("images/icons.png") 0px 0px;
+}
+#add:hover{
+    height: 32px;
+    width: 32px;
+    background: url("images/icons.png") 0px -37px;
+}
+#btnDel{
+    color: #ffffff;
+    font-size: large;
+    font-weight: bolder;
+    border: 2px solid;
+    padding: 15px 0px;
+    
+}
+#btnDel:hover{
+    color: #ffff00;
+}
+#btnDel:hover #del{ 
+    background: url("images/icons.png") -37px -41px;
+}
+.del{
+    height: 32px;
+    width: 32px;
+    background: url("images/icons.png") -37px 0px;
+  /*  margin-left: 10px;*/
+    float: right;
+}
+.del:hover{
+    height: 32px;
+    width: 32px;
+    background: url("images/icons.png") -37px -41px;
+    cursor: pointer;
+}
+#btnEdit{
+    color: #ffffff;
+    font-size: large;
+    font-weight: bolder;
+    border: 2px solid;
+    padding: 15px 0px;
+    
+}
+#btnEdit:hover{
+    color: #ffff00;
+}
+#btnEdit:hover #edit{
+    background: url("images/icons.png") -74px -41px;
+}
+.edit{
+    height: 32px;
+    width: 32px;
+    background: url("images/icons.png") -74px 0px;
+/*    margin-left: 10px;*/
+}
+.edit:hover{
+    height: 32px;
+    width: 32px;
+    background: url("images/icons.png") -74px -41px;
+    cursor: pointer;
+}
+.alignImg{
+    float: right;
+  /*  width: 70px;*/
+}
+#btnInsert{
+    display: none;
+    color: #ffffff;
+    border: 1px solid;
+    padding: 5px;
+    width: 100px;
+}
+#btnInsert:hover{
+    color: #ffff00;
+}
+#btnInsert_edit{
+    display: none;
+    color: #ffffff;
+    border: 1px solid;
+    padding: 5px;
+    width: 100px;
+}
+#btnInsert_edit:hover{
+    color: #ffff00;
+}
+.insert{
+    display: none;    
+}
+.insert:focus{
+    border: 2px solid;
+    border-color: #ff00ff;
+    background: #00ffff;
+    color: #000000;
+    font-weight: bolder;
+}
+.list li:hover{
+    background: #757579;
+    color: #000000;
+}

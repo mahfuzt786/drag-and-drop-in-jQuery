@@ -1,0 +1,1 @@
+This is a simple drag and drop example in jQuery..

@@ -1,0 +1,222 @@
+<!DOCTYPE HTML>
+    <html>
+        <head>
+            <title>Editable item list</title>
+            <link href="item.css" type="text/css" rel="stylesheet">
+<!--            <script src="jquery.min.js" type="text/javascript" ></script>
+            <script src="jquery.sortable.js"></script>-->
+            <script src="jquery-1.9.1.js"></script>
+            <script src="jquery-ui.js"></script>     
+            
+            <script>
+                                
+                $(document).ready(function() {                    
+                    document.getElementById("itemz").options.length = 0;
+                    var items=[];
+                    var i;
+                    items[0]="horlicks";
+                    items[1]="boost";
+                    items[2]="milo";
+                    items[3]="bournvita";
+                    var value;
+                    //$(items).each(function() {
+                    for (i = 0; i < items.length; i = i + 1 ) {
+                        $('ul').append('<li><span class="display">' + items[i] + '</span><input type="text" class="editor" maxlength="20" style="display:none"/><div class="alignImg"><img class="del" src="images/largeTransparent.gif" alt="delete" height="1" width="1"/> <img class="edit" src="images/largeTransparent.gif" alt="edit" height="1" width="1"/></div> </li>');
+                        var option=document.createElement("option");
+                        option.text=items[i];
+                        document.getElementById('itemz').add(option,null);
+                    }
+
+                    $('#btnAdd').click(function(){
+                        $('#btnInsert').css("display","block");
+                        $('.insert').css("display","block");
+                        $('.insert').val("");
+                    });
+                    
+                    $('#btnInsert').click(function(){
+                        if($('.insert').val()!="")
+                        {                     
+                        $('#itemz').append("<option>"+ $('.insert').val() +"</option>");
+                        $('ul').append('<li><span class="display">' + $('.insert').val() + '</span><input type="text" maxlength="20" class="editor" style="display:none"/><div class="alignImg"><img class="del" src="images/largeTransparent.gif" alt="delete" height="1" width="1"/> <img class="edit" src="images/largeTransparent.gif" alt="edit" height="1" width="1"/></div> </li>');
+                        alert('added..!!');
+                        $('p').show();
+                        $('p').text($('.list').text());
+                        $('#btnInsert').css("display","none");
+                        $('.insert').css("display","none");
+                        }
+                        else{
+                            alert('cannot add a blank item retry..!!');
+                            $('#btnInsert').css("display","none");
+                            $('.insert').css("display","none");
+                        }
+                    });
+                    
+                    $('#btnDel').click(function(){                        
+                        $('#itemz option:selected').each( function() {
+                            $(this).remove();
+                            $(".list li:contains('" + $(this).text() + "')").remove();                     
+                        });
+                    });
+                    
+                    $('.list').on('click','li .del',function(){
+                        //alert("helloo");                        
+                        var value;
+                        value=$(".list li:hover").index();                        
+                        $(".list li:hover").each( function() {                            
+                            $(this).remove();
+                            $("#itemz option").eq(value).remove();                     
+                        });
+                        
+                        $('p').show();
+                        $('p').text($('.list').text());
+                    });
+                    
+                    $('.list').on('click','li .edit',function(){
+                        value=$(".list li:hover").index();
+                        //$('.list').not('.list li:hover').hide();
+                        $('.list li:hover .del').hide();
+                        $(".list li:hover .display").hide().siblings(".editor").show().val($(".list li:hover").text()).focus();                                               
+                    });
+                    
+                    $(".list").on('blur','li .editor',function(){
+                        if($(this).val()!="")
+                        {
+                            $(this).hide().siblings(".list li .display").show().text($(this).val());
+                            $("#itemz option").eq(value).text($(this).val());
+                            $('.del').show();
+                            $('p').show();
+                            $('p').text($('.list').text());
+                            //alert('edited..!!');
+                        }
+                        else
+                        {
+                            alert('cannot add a blank item retry..!!');
+                        }
+                    }); 
+
+                    $('.list').on('keyup','li .editor',function(e){
+                    if(e.keyCode == 13)
+                    {                        
+                        if($(this).val()!="")
+                        {
+                            $(this).hide().siblings(".list li .display").show().text($(this).val());
+                            $("#itemz option").eq(value).text($(this).val());
+                            $('.del').show();
+                            alert('edited..!!');
+                            $('p').show();
+                            $('p').text($('.list').text());
+                        }
+                        else
+                        {
+                            alert('cannot add a blank item retry..!!');
+                        }
+                    }    
+                    });                    
+
+                    $('#btn-add').click(function(){
+                        $('#select-from option:selected').each( function() {
+                            $('#select-to').append("<option value='"+$(this).val()+"'>"+$(this).text()+"</option>");
+                            $(this).remove();
+                        });
+                    });
+                    
+                    $('#btn-remove').click(function(){
+                        $('#select-to option:selected').each( function() {
+                            $('#select-from').append("<option value='"+$(this).val()+"'>"+$(this).text()+"</option>");
+                            $(this).remove();
+                        });
+                    });                 
+            //    });                
+            //<!--<!--</ script>-->-->
+            //
+            // <!--<!--<script>-->-->
+            //$(function() {
+                var newIndex=0;
+                var oldIndex=0;
+                $(".list").sortable({
+                    
+                    update: function(event, ui) { 
+                        ('update: '+ui.item.index())
+                        newIndex=ui.item.index();
+                        //alert(newIndex+" "+oldIndex+"");
+                        //alert($("#itemz").find("option:eq("+oldIndex+")").text());
+                        //alert($("#itemz").find("option:eq("+newIndex+")").text());
+                        var tmp="";
+                        tmp=$("#itemz").find("option:eq("+oldIndex+")").text();
+                        $("#itemz").find("option:eq("+oldIndex+")").text($("#itemz").find("option:eq("+newIndex+")").text());
+                        $("#itemz").find("option:eq("+newIndex+")").text(tmp);
+                        
+                        $('p').show();
+                        $('p').text($('.list').text());
+                    },
+                    start: function(event, ui) { 
+                        ('start: ' + ui.item.index())
+                        oldIndex=ui.item.index();
+                    } 
+                });                
+                
+                $('p').on("click",function(){
+                    $(this).hide();                
+                });
+                
+                $(".list").disableSelection();
+                $('.list li').css("cursor", "move");
+                $('.list').draggable({ scroll: true });                
+            });
+            </script>
+        </head>
+        
+        <body>
+            <div class="wrapper">
+                <div class="inner">
+                    <div id="items" action=""> 
+                        <label>items : </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <select id="itemz">                            
+                            <option class="item_option"> </option>                    
+                        </select>
+                                                
+                        <a href="JavaScript:void(0);" id="btnAdd"><img id="add" src="images/largeTransparent.gif" alt="add" height="1" width="1"/>ADD </a> &nbsp;&nbsp;
+                        
+                        <a href="JavaScript:void(0);" id="btnDel"><!--<img class="del" src="images/largeTransparent.gif" alt="delete" height="1" width="1"/>-->DELETE </a> &nbsp;&nbsp;
+                        
+                        <br/><br/>
+                        
+                        <input class="insert" type="text" maxlength="20" placeholder="Enter a item name.."> </input> &nbsp;&nbsp;
+                        <a href="JavaScript:void(0);" id="btnInsert"> INSERT &raquo;</a>                        
+                                        
+                        <ul class="list">                        
+                        </ul>
+                        <br/>
+                    </div>
+                    
+
+                    <div style="width: 500px;" >
+                        <p class"disp"> </p>
+                    </div>
+                    <br/>
+                    
+                    <div>
+                    <form>
+                    <fieldset style="width: 350px; float: right;"> 
+                        <select name="selectfrom" id="select-from" multiple size="5">
+                            <option value="1">Item 1</option>
+                            <option value="2">Item 2</option>
+                            <option value="3">Item 3</option>
+                            <option value="4">Item 4</option>
+                        </select>
+                     
+                        <a href="JavaScript:void(0);" id="btn-add">Add &raquo;</a>
+                        <a href="JavaScript:void(0);" id="btn-remove">&laquo; Remove</a>
+                        
+                        <select name="selectto" id="select-to" multiple size="5">
+                            <option value="5">Item 5</option>
+                            <option value="6">Item 6</option>
+                            <option value="7">Item 7</option>
+                        </select>
+                    </fieldset>
+                    </form>
+                    </div>
+                </div>
+            </div>            
+        </body>
+    </html>
